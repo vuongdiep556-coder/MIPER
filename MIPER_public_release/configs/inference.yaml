@@ -1,0 +1,39 @@
+data:
+  root: data/six_datasets
+  split_root: data/six_datasets/splits
+  split_seed: train_seed
+  split_partitions:
+  - train
+  - valid
+  - test
+source:
+  encoder_checkpoint: weights/encoder.pt
+encoder:
+  gene_dim: 978
+  atom_dim: 28
+  molecular_hidden: 512
+  molecular_ffn: 1536
+  condition_dim: 1024
+  molecular_layers: 5
+  molecular_heads: 8
+  reactome_dim: 472
+  hallmark_dim: 49
+  dropout: 0.1
+  activation_checkpointing: false
+response_head:
+  gex_dim: 978
+  finetune_hdim1: 512
+  finetune_hdim2: 64
+  pathway_hdim: 128
+  scale_dims:
+  - 32
+  - 64
+  - 128
+  bilinear_out: 128
+  scale_attn_heads: 4
+  dropout: 0.1
+train:
+  seed: 41
+  batch_size: 128
+  scaled_dose: 0.1
+  time: 1.0

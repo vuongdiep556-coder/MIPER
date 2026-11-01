@@ -1,0 +1,92 @@
+project: ${RELEASE_ROOT}
+release: ${RELEASE_ROOT}
+data:
+  lincs_dir: ${RELEASE_ROOT}/data/pretraining/lincs_full
+  pathway_dir: ${RELEASE_ROOT}/data/pretraining/pathways
+  cache_dir: ${RELEASE_ROOT}/cache/pretraining
+  split_file: ${RELEASE_ROOT}/assets/pretraining/lincs_splits_v3.json
+  stats_chunk_rows: 8192
+model:
+  gene_dim: 978
+  atom_dim: 28
+  molecular_hidden: 512
+  molecular_ffn: 1536
+  condition_dim: 1024
+  molecular_layers: 5
+  molecular_heads: 8
+  reactome_dim: 472
+  hallmark_dim: 49
+  dropout: 0.1
+  activation_checkpointing: false
+loss:
+  gene: 1.0
+  responsive_delta: 0.2
+  delta_pcc: 0.05
+  reactome: 0.2
+  hallmark: 0.1
+  embedding_variance: 2.0
+  embedding_covariance: 1.0
+  molecular_variance: 5.0
+  molecular_covariance: 1.0
+  identity_consistency: 0.02
+  embedding_std_floor: 0.3
+  response_clip: 3.0
+  huber_beta: 1.0
+train:
+  seed: 42
+  run_dir: ${RELEASE_ROOT}/runs/pretraining
+  result_dir: ${RELEASE_ROOT}/runs/pretraining/reports
+  improvement_patience: 30
+  improvement_min_delta: 0.0
+  batch_size_per_gpu: 64
+  eval_batch_size_per_gpu: 64
+  condition_group_size: 2
+  accumulate_steps: 1
+  num_workers_per_gpu: 2
+  learning_rate: 0.0001
+  warmup_epochs: 5
+  weight_decay: 1.0e-05
+  grad_clip: 1.0
+  scheduler_factor: 0.5
+  scheduler_patience: 5
+  min_lr: 1.0e-06
+  heartbeat_steps: 100
+  divergence_patience: 3
+  metric_deficit_early_stop: false
+selection:
+  transfer_baseline_file: null
+  random_guard_tolerance:
+    gene_rmse: 0.01
+    gene_pcc: 0.001
+    delta_gene_pcc: 0.005
+    reactome_pcc: 0.005
+    hallmark_pcc: 0.005
+  embedding_rank_min_fraction: 0.8
+  embedding_top10_max_margin: 0.1
+  baseline:
+    gene_rmse: null
+    gene_pcc: null
+    delta_gene_pcc: null
+    reactome_pcc: null
+    hallmark_pcc: null
+  score_weights:
+    gene_pcc: 0.2
+    delta_gene_pcc: 0.35
+    reactome_pcc: 0.2
+    hallmark_pcc: 0.2
+    gene_rmse: 0.05
+  score_scales:
+    gene_pcc: 0.01
+    delta_gene_pcc: 0.05
+    reactome_pcc: 0.05
+    hallmark_pcc: 0.05
+    gene_rmse: 0.05
+  divergence:
+    after_epoch: 10
+    gene_pcc_min: 0.75
+    delta_gene_pcc_min: 0.05
+    reactome_pcc_min: 0.05
+    hallmark_pcc_min: 0.05
+smoke:
+  train_steps: 200
+  valid_steps: 30

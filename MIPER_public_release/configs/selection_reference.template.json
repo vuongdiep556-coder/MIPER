@@ -1,0 +1,36 @@
+{
+  "score_baseline": {
+    "gene_rmse": null,
+    "gene_pcc": null,
+    "delta_gene_pcc": null,
+    "reactome_pcc": null,
+    "hallmark_pcc": null
+  },
+  "splits": {
+    "random_valid": {
+      "gene_rmse": null,
+      "gene_pcc": null,
+      "delta_gene_pcc": null,
+      "reactome_pcc": null,
+      "hallmark_pcc": null
+    },
+    "drug_ood_valid": {
+      "gene_rmse": null,
+      "gene_pcc": null,
+      "delta_gene_pcc": null,
+      "reactome_pcc": null,
+      "hallmark_pcc": null
+    },
+    "scaffold_ood_valid": {
+      "gene_rmse": null,
+      "gene_pcc": null,
+      "delta_gene_pcc": null,
+      "reactome_pcc": null,
+      "hallmark_pcc": null
+    }
+  },
+  "ood_embedding_rank": {
+    "effective_rank_entropy": null,
+    "top10_fraction": null
+  }
+}

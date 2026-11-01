@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.venv/
+.conda/
+outputs/
+runs/
+cache/
+*.tmp
+*.lock
+data/
+weights/
+*.zip
+*.tar*
